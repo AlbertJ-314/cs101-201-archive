@@ -8,5 +8,5 @@ cs101-201-archive/
 ├── Assignments/
 │ ├── CS101/
 │ └── CS201/
-└── codes/
+└── code/
 ```
