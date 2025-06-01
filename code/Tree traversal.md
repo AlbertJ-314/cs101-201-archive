@@ -1,6 +1,8 @@
 ## Tree traversal
 
 ```python
+from collections.abc import Iterator
+
 class TreeNode:
     def __init__(self, val: int | None = None, children: list['TreeNode'] | None = None ):
         self.val = val
@@ -14,21 +16,19 @@ class TreeNode:
 ###### Recursive
 
 ```python
-def preorder(root: TreeNode | None) -> list[int]:
-    if not root:
-        return []
-    res = [root.val]
+def preorder(root: TreeNode | None) -> Iterator[int]:
+    if root is None:
+        return
+    yield root.val
     for child in root.children:
-        res.extend(preorder(child))
-    return res
+        yield from preorder(child)
 
-def postorder(root: TreeNode | None) -> list[int]:
-    if not root:
-        return []
-    res = []
+def postorder(root: TreeNode | None) -> Iterator[int]:
+    if root is None:
+        return
     for child in root.children:
-        res.extend(postorder(child))
-    return res + [root.val]
+        yield from postorder(child)
+    yield root.val
 ```
 
 
@@ -39,7 +39,7 @@ def postorder(root: TreeNode | None) -> list[int]:
 
 ```python
 def preorder(root: TreeNode | None) -> list[int]:
-    if not root:
+    if root is None:
         return []
     res, stack = [], [root]
     while stack:
@@ -50,7 +50,7 @@ def preorder(root: TreeNode | None) -> list[int]:
     return res
 
 def postorder(root: TreeNode | None) -> list[int]:
-    if not root:
+    if root is None:
         return []
     res, stack = [], [root]
     while stack:
@@ -69,7 +69,7 @@ def postorder(root: TreeNode | None) -> list[int]:
 from collections import deque
 
 def levelorder(root: TreeNode | None) -> list[list[int]]:
-    if not root:
+    if root is None:
         return []
     queue, res = deque([root]), []
     while queue:
@@ -87,6 +87,8 @@ def levelorder(root: TreeNode | None) -> list[list[int]]:
 #### Inorder traversal for binary trees
 
 ```python
+from collections.abc import Iterator
+
 class BinNode:
     def __init__(self, val: int | None = None,
                  left: 'BinNode' | None = None,
@@ -101,8 +103,12 @@ class BinNode:
 ###### Recursive
 
 ```python
-def inorder(root: BinNode | None) -> list[int]:
-    return inorder(root.left) + [root.val] + inorder(root.right) if root else []
+def inorder(root: BinNode | None) -> Iterator[int]:
+    if root is None:
+        return
+    yield from inorder(root.left)
+    yield root.val
+    yield from inorder(root.right)
 ```
 
 
@@ -111,7 +117,7 @@ def inorder(root: BinNode | None) -> list[int]:
 
 ```python
 def inorder(root: BinNode | None) -> list[int]:
-    if not root:
+    if root is None:
         return []
     res, stack, node = [], [], root
     while node or stack:
