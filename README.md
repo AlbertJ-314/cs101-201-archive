@@ -5,7 +5,7 @@
 
 ```
 cs101-201-archive/
-├── Assignments/
+├── assignments/
 │ ├── CS101/
 │ └── CS201/
 └── code/
