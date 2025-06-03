@@ -77,7 +77,7 @@ Space complexity: $O\left(V + E\right)$.
 
 ```python
 from math import inf
-# graph: adjacency matrix where graph[u][v] is the weight of edge (u, v) or inf if no edge exists.
+
 def prim(graph: list[list[float]]) -> list[tuple[int, int, float]]:
     """
     Compute the Minimum Spanning Tree (MST) using Prim's algorithm (adjacency matrix version).
